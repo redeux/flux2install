@@ -92,7 +92,7 @@ resource "kubernetes_manifest" "deployment_source_controller" {
               }
               "resources" = {
                 "limits" = {
-                  "cpu"    = "1000m"
+                  "cpu"    = "1"
                   "memory" = "1Gi"
                 }
                 "requests" = {

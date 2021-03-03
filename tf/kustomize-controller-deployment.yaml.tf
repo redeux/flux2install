@@ -80,7 +80,7 @@ resource "kubernetes_manifest" "deployment_kustomize_controller" {
               }
               "resources" = {
                 "limits" = {
-                  "cpu"    = "1000m"
+                  "cpu"    = "1"
                   "memory" = "1Gi"
                 }
                 "requests" = {

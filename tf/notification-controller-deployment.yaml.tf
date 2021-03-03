@@ -91,7 +91,7 @@ resource "kubernetes_manifest" "deployment_notification_controller" {
               }
               "resources" = {
                 "limits" = {
-                  "cpu"    = "1000m"
+                  "cpu"    = "1"
                   "memory" = "1Gi"
                 }
                 "requests" = {
@@ -126,4 +126,8 @@ resource "kubernetes_manifest" "deployment_notification_controller" {
       }
     }
   }
+}
+
+output "kubernetes_manifest-deployment_notification_controller" {
+  value = kubernetes_manifest.deployment_notification_controller
 }
