@@ -3,11 +3,11 @@ resource "kubernetes_manifest" "namespace_flux_system" {
 
   manifest = {
     "apiVersion" = "v1"
-    "kind" = "Namespace"
+    "kind"       = "Namespace"
     "metadata" = {
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
+        "app.kubernetes.io/version"  = "v0.9.0"
       }
       "name" = "flux-system"
     }

@@ -3,26 +3,26 @@ resource "kubernetes_manifest" "networkpolicy_allow_scraping" {
 
   manifest = {
     "apiVersion" = "networking.k8s.io/v1"
-    "kind" = "NetworkPolicy"
+    "kind"       = "NetworkPolicy"
     "metadata" = {
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
+        "app.kubernetes.io/version"  = "v0.9.0"
       }
-      "name" = "allow-scraping"
+      "name"      = "allow-scraping"
       "namespace" = "flux-system"
     }
     "spec" = {
       "ingress" = [
         {
-          "from" = [
-            {
-              "namespaceSelector" = {}
-            },
-          ]
+          # "from" = [
+          #   {
+          #     "namespaceSelector" = {}
+          #   },
+          # ]
           "ports" = [
             {
-              "port" = 8080
+              "port"     = 8080
               "protocol" = "TCP"
             },
           ]

@@ -3,14 +3,14 @@ resource "kubernetes_manifest" "deployment_source_controller" {
 
   manifest = {
     "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
+    "kind"       = "Deployment"
     "metadata" = {
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
-        "control-plane" = "controller"
+        "app.kubernetes.io/version"  = "v0.9.0"
+        "control-plane"              = "controller"
       }
-      "name" = "source-controller"
+      "name"      = "source-controller"
       "namespace" = "flux-system"
     }
     "spec" = {
@@ -26,7 +26,7 @@ resource "kubernetes_manifest" "deployment_source_controller" {
       "template" = {
         "metadata" = {
           "annotations" = {
-            "prometheus.io/port" = "8080"
+            "prometheus.io/port"   = "8080"
             "prometheus.io/scrape" = "true"
           }
           "labels" = {
@@ -55,7 +55,7 @@ resource "kubernetes_manifest" "deployment_source_controller" {
                   }
                 },
               ]
-              "image" = "ghcr.io/fluxcd/source-controller:v0.9.0"
+              "image"           = "ghcr.io/fluxcd/source-controller:v0.9.0"
               "imagePullPolicy" = "IfNotPresent"
               "livenessProbe" = {
                 "httpGet" = {
@@ -67,15 +67,21 @@ resource "kubernetes_manifest" "deployment_source_controller" {
               "ports" = [
                 {
                   "containerPort" = 9090
-                  "name" = "http"
+                  "name"          = "http"
+                  #protocol absent from manifest but required by TF
+                  "protocol" = "TCP"
                 },
                 {
                   "containerPort" = 8080
-                  "name" = "http-prom"
+                  "name"          = "http-prom"
+                  #protocol absent from manifest but required by TF
+                  "protocol" = "TCP"
                 },
                 {
                   "containerPort" = 9440
-                  "name" = "healthz"
+                  "name"          = "healthz"
+                  #protocol absent from manifest but required by TF
+                  "protocol" = "TCP"
                 },
               ]
               "readinessProbe" = {
@@ -86,26 +92,26 @@ resource "kubernetes_manifest" "deployment_source_controller" {
               }
               "resources" = {
                 "limits" = {
-                  "cpu" = "1000m"
+                  "cpu"    = "1000m"
                   "memory" = "1Gi"
                 }
                 "requests" = {
-                  "cpu" = "50m"
+                  "cpu"    = "50m"
                   "memory" = "64Mi"
                 }
               }
               "securityContext" = {
                 "allowPrivilegeEscalation" = false
-                "readOnlyRootFilesystem" = true
+                "readOnlyRootFilesystem"   = true
               }
               "volumeMounts" = [
                 {
                   "mountPath" = "/data"
-                  "name" = "data"
+                  "name"      = "data"
                 },
                 {
                   "mountPath" = "/tmp"
-                  "name" = "tmp"
+                  "name"      = "tmp"
                 },
               ]
             },
@@ -116,16 +122,16 @@ resource "kubernetes_manifest" "deployment_source_controller" {
           "securityContext" = {
             "fsGroup" = 1337
           }
-          "serviceAccountName" = "source-controller"
+          "serviceAccountName"            = "source-controller"
           "terminationGracePeriodSeconds" = 10
           "volumes" = [
             {
               "emptyDir" = {}
-              "name" = "data"
+              "name"     = "data"
             },
             {
               "emptyDir" = {}
-              "name" = "tmp"
+              "name"     = "tmp"
             },
           ]
         }

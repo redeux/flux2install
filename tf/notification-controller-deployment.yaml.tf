@@ -3,14 +3,14 @@ resource "kubernetes_manifest" "deployment_notification_controller" {
 
   manifest = {
     "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
+    "kind"       = "Deployment"
     "metadata" = {
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
-        "control-plane" = "controller"
+        "app.kubernetes.io/version"  = "v0.9.0"
+        "control-plane"              = "controller"
       }
-      "name" = "notification-controller"
+      "name"      = "notification-controller"
       "namespace" = "flux-system"
     }
     "spec" = {
@@ -23,7 +23,7 @@ resource "kubernetes_manifest" "deployment_notification_controller" {
       "template" = {
         "metadata" = {
           "annotations" = {
-            "prometheus.io/port" = "8080"
+            "prometheus.io/port"   = "8080"
             "prometheus.io/scrape" = "true"
           }
           "labels" = {
@@ -49,7 +49,7 @@ resource "kubernetes_manifest" "deployment_notification_controller" {
                   }
                 },
               ]
-              "image" = "ghcr.io/fluxcd/notification-controller:v0.9.0"
+              "image"           = "ghcr.io/fluxcd/notification-controller:v0.9.0"
               "imagePullPolicy" = "IfNotPresent"
               "livenessProbe" = {
                 "httpGet" = {
@@ -61,20 +61,26 @@ resource "kubernetes_manifest" "deployment_notification_controller" {
               "ports" = [
                 {
                   "containerPort" = 9440
-                  "name" = "healthz"
-                  "protocol" = "TCP"
+                  "name"          = "healthz"
+                  "protocol"      = "TCP"
                 },
                 {
                   "containerPort" = 9090
-                  "name" = "http"
+                  "name"          = "http"
+                  #protocol absent from manifest but required by TF
+                  "protocol" = "TCP"
                 },
                 {
                   "containerPort" = 9292
-                  "name" = "http-webhook"
+                  "name"          = "http-webhook"
+                  #protocol absent from manifest but required by TF
+                  "protocol" = "TCP"
                 },
                 {
                   "containerPort" = 8080
-                  "name" = "http-prom"
+                  "name"          = "http-prom"
+                  #protocol absent from manifest but required by TF
+                  "protocol" = "TCP"
                 },
               ]
               "readinessProbe" = {
@@ -85,22 +91,22 @@ resource "kubernetes_manifest" "deployment_notification_controller" {
               }
               "resources" = {
                 "limits" = {
-                  "cpu" = "1000m"
+                  "cpu"    = "1000m"
                   "memory" = "1Gi"
                 }
                 "requests" = {
-                  "cpu" = "100m"
+                  "cpu"    = "100m"
                   "memory" = "64Mi"
                 }
               }
               "securityContext" = {
                 "allowPrivilegeEscalation" = false
-                "readOnlyRootFilesystem" = true
+                "readOnlyRootFilesystem"   = true
               }
               "volumeMounts" = [
                 {
                   "mountPath" = "/tmp"
-                  "name" = "temp"
+                  "name"      = "temp"
                 },
               ]
             },
@@ -108,12 +114,12 @@ resource "kubernetes_manifest" "deployment_notification_controller" {
           "nodeSelector" = {
             "kubernetes.io/os" = "linux"
           }
-          "serviceAccountName" = "notification-controller"
+          "serviceAccountName"            = "notification-controller"
           "terminationGracePeriodSeconds" = 10
           "volumes" = [
             {
               "emptyDir" = {}
-              "name" = "temp"
+              "name"     = "temp"
             },
           ]
         }

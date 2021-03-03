@@ -3,14 +3,14 @@ resource "kubernetes_manifest" "deployment_kustomize_controller" {
 
   manifest = {
     "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
+    "kind"       = "Deployment"
     "metadata" = {
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
-        "control-plane" = "controller"
+        "app.kubernetes.io/version"  = "v0.9.0"
+        "control-plane"              = "controller"
       }
-      "name" = "kustomize-controller"
+      "name"      = "kustomize-controller"
       "namespace" = "flux-system"
     }
     "spec" = {
@@ -23,7 +23,7 @@ resource "kubernetes_manifest" "deployment_kustomize_controller" {
       "template" = {
         "metadata" = {
           "annotations" = {
-            "prometheus.io/port" = "8080"
+            "prometheus.io/port"   = "8080"
             "prometheus.io/scrape" = "true"
           }
           "labels" = {
@@ -50,7 +50,7 @@ resource "kubernetes_manifest" "deployment_kustomize_controller" {
                   }
                 },
               ]
-              "image" = "ghcr.io/fluxcd/kustomize-controller:v0.9.1"
+              "image"           = "ghcr.io/fluxcd/kustomize-controller:v0.9.1"
               "imagePullPolicy" = "IfNotPresent"
               "livenessProbe" = {
                 "httpGet" = {
@@ -62,12 +62,14 @@ resource "kubernetes_manifest" "deployment_kustomize_controller" {
               "ports" = [
                 {
                   "containerPort" = 9440
-                  "name" = "healthz"
-                  "protocol" = "TCP"
+                  "name"          = "healthz"
+                  "protocol"      = "TCP"
                 },
                 {
                   "containerPort" = 8080
-                  "name" = "http-prom"
+                  "name"          = "http-prom"
+                  #protocol absent from manifest but required by TF
+                  "protocol" = "TCP"
                 },
               ]
               "readinessProbe" = {
@@ -78,22 +80,22 @@ resource "kubernetes_manifest" "deployment_kustomize_controller" {
               }
               "resources" = {
                 "limits" = {
-                  "cpu" = "1000m"
+                  "cpu"    = "1000m"
                   "memory" = "1Gi"
                 }
                 "requests" = {
-                  "cpu" = "100m"
+                  "cpu"    = "100m"
                   "memory" = "64Mi"
                 }
               }
               "securityContext" = {
                 "allowPrivilegeEscalation" = false
-                "readOnlyRootFilesystem" = true
+                "readOnlyRootFilesystem"   = true
               }
               "volumeMounts" = [
                 {
                   "mountPath" = "/tmp"
-                  "name" = "temp"
+                  "name"      = "temp"
                 },
               ]
             },
@@ -104,12 +106,12 @@ resource "kubernetes_manifest" "deployment_kustomize_controller" {
           "securityContext" = {
             "fsGroup" = 1337
           }
-          "serviceAccountName" = "kustomize-controller"
+          "serviceAccountName"            = "kustomize-controller"
           "terminationGracePeriodSeconds" = 60
           "volumes" = [
             {
               "emptyDir" = {}
-              "name" = "temp"
+              "name"     = "temp"
             },
           ]
         }

@@ -3,23 +3,23 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
 
   manifest = {
     "apiVersion" = "apiextensions.k8s.io/v1"
-    "kind" = "CustomResourceDefinition"
+    "kind"       = "CustomResourceDefinition"
     "metadata" = {
       "annotations" = {
         "controller-gen.kubebuilder.io/version" = "v0.4.1"
       }
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
+        "app.kubernetes.io/version"  = "v0.9.0"
       }
       "name" = "helmreleases.helm.toolkit.fluxcd.io"
     }
     "spec" = {
       "group" = "helm.toolkit.fluxcd.io"
       "names" = {
-        "kind" = "HelmRelease"
+        "kind"     = "HelmRelease"
         "listKind" = "HelmReleaseList"
-        "plural" = "helmreleases"
+        "plural"   = "helmreleases"
         "shortNames" = [
           "hr",
         ]
@@ -31,18 +31,18 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
           "additionalPrinterColumns" = [
             {
               "jsonPath" = ".status.conditions[?(@.type==\"Ready\")].status"
-              "name" = "Ready"
-              "type" = "string"
+              "name"     = "Ready"
+              "type"     = "string"
             },
             {
               "jsonPath" = ".status.conditions[?(@.type==\"Ready\")].message"
-              "name" = "Status"
-              "type" = "string"
+              "name"     = "Status"
+              "type"     = "string"
             },
             {
               "jsonPath" = ".metadata.creationTimestamp"
-              "name" = "Age"
-              "type" = "date"
+              "name"     = "Age"
+              "type"     = "date"
             },
           ]
           "name" = "v2beta1"
@@ -52,11 +52,11 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
               "properties" = {
                 "apiVersion" = {
                   "description" = "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
-                  "type" = "string"
+                  "type"        = "string"
                 }
                 "kind" = {
                   "description" = "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
-                  "type" = "string"
+                  "type"        = "string"
                 }
                 "metadata" = {
                   "type" = "object"
@@ -72,18 +72,18 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                           "properties" = {
                             "chart" = {
                               "description" = "The name or path the Helm chart is available at in the SourceRef."
-                              "type" = "string"
+                              "type"        = "string"
                             }
                             "interval" = {
                               "description" = "Interval at which to check the v1beta1.Source for updates. Defaults to 'HelmReleaseSpec.Interval'."
-                              "type" = "string"
+                              "type"        = "string"
                             }
                             "sourceRef" = {
                               "description" = "The name and namespace of the v1beta1.Source the chart is available at."
                               "properties" = {
                                 "apiVersion" = {
                                   "description" = "APIVersion of the referent."
-                                  "type" = "string"
+                                  "type"        = "string"
                                 }
                                 "kind" = {
                                   "description" = "Kind of the referent."
@@ -96,15 +96,15 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                                 }
                                 "name" = {
                                   "description" = "Name of the referent."
-                                  "maxLength" = 253
-                                  "minLength" = 1
-                                  "type" = "string"
+                                  "maxLength"   = 253
+                                  "minLength"   = 1
+                                  "type"        = "string"
                                 }
                                 "namespace" = {
                                   "description" = "Namespace of the referent."
-                                  "maxLength" = 63
-                                  "minLength" = 1
-                                  "type" = "string"
+                                  "maxLength"   = 63
+                                  "minLength"   = 1
+                                  "type"        = "string"
                                 }
                               }
                               "required" = [
@@ -114,12 +114,12 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                             }
                             "valuesFile" = {
                               "description" = "Alternative values file to use as the default chart values, expected to be a relative path in the SourceRef. Ignored when omitted."
-                              "type" = "string"
+                              "type"        = "string"
                             }
                             "version" = {
-                              "default" = "*"
+                              "default"     = "*"
                               "description" = "Version semver expression, ignored for charts from v1beta1.GitRepository and v1beta1.Bucket sources. Defaults to latest when omitted."
-                              "type" = "string"
+                              "type"        = "string"
                             }
                           }
                           "required" = [
@@ -141,11 +141,11 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                         "properties" = {
                           "name" = {
                             "description" = "Name holds the name reference of a dependency."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "namespace" = {
                             "description" = "Namespace holds the namespace reference of a dependency."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                         }
                         "required" = [
@@ -160,56 +160,56 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                       "properties" = {
                         "createNamespace" = {
                           "description" = "CreateNamespace tells the Helm install action to create the HelmReleaseSpec.TargetNamespace if it does not exist yet. On uninstall, the namespace will not be garbage collected."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "disableHooks" = {
                           "description" = "DisableHooks prevents hooks from running during the Helm install action."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "disableOpenAPIValidation" = {
                           "description" = "DisableOpenAPIValidation prevents the Helm install action from validating rendered templates against the Kubernetes OpenAPI Schema."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "disableWait" = {
                           "description" = "DisableWait disables the waiting for resources to be ready after a Helm install has been performed."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "remediation" = {
                           "description" = "Remediation holds the remediation configuration for when the Helm install action for the HelmRelease fails. The default is to not perform any action."
                           "properties" = {
                             "ignoreTestFailures" = {
                               "description" = "IgnoreTestFailures tells the controller to skip remediation when the Helm tests are run after an install action but fail. Defaults to 'Test.IgnoreFailures'."
-                              "type" = "boolean"
+                              "type"        = "boolean"
                             }
                             "remediateLastFailure" = {
                               "description" = "RemediateLastFailure tells the controller to remediate the last failure, when no retries remain. Defaults to 'false'."
-                              "type" = "boolean"
+                              "type"        = "boolean"
                             }
                             "retries" = {
                               "description" = "Retries is the number of retries that should be attempted on failures before bailing. Remediation, using an uninstall, is performed between each attempt. Defaults to '0', a negative integer equals to unlimited retries."
-                              "type" = "integer"
+                              "type"        = "integer"
                             }
                           }
                           "type" = "object"
                         }
                         "replace" = {
                           "description" = "Replace tells the Helm install action to re-use the 'ReleaseName', but only if that name is a deleted release which remains in the history."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "skipCRDs" = {
                           "description" = "SkipCRDs tells the Helm install action to not install any CRDs. By default, CRDs are installed if not already present."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "timeout" = {
                           "description" = "Timeout is the time to wait for any individual Kubernetes operation (like Jobs for hooks) during the performance of a Helm install action. Defaults to 'HelmReleaseSpec.Timeout'."
-                          "type" = "string"
+                          "type"        = "string"
                         }
                       }
                       "type" = "object"
                     }
                     "interval" = {
                       "description" = "Interval at which to reconcile the Helm release."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "kubeConfig" = {
                       "description" = "KubeConfig for reconciling the HelmRelease on a remote cluster. When specified, KubeConfig takes precedence over ServiceAccountName."
@@ -219,7 +219,7 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                           "properties" = {
                             "name" = {
                               "description" = "Name of the referent"
-                              "type" = "string"
+                              "type"        = "string"
                             }
                           }
                           "required" = [
@@ -232,7 +232,7 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                     }
                     "maxHistory" = {
                       "description" = "MaxHistory is the number of revisions saved by Helm for this HelmRelease. Use '0' for an unlimited number of revisions; defaults to '10'."
-                      "type" = "integer"
+                      "type"        = "integer"
                     }
                     "postRenderers" = {
                       "description" = "PostRenderers holds an array of Helm PostRenderers, which will be applied in order of their definition."
@@ -249,19 +249,19 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                                   "properties" = {
                                     "digest" = {
                                       "description" = "Digest is the value used to replace the original image tag. If digest is present NewTag value is ignored."
-                                      "type" = "string"
+                                      "type"        = "string"
                                     }
                                     "name" = {
                                       "description" = "Name is a tag-less image name."
-                                      "type" = "string"
+                                      "type"        = "string"
                                     }
                                     "newName" = {
                                       "description" = "NewName is the value used to replace the original name."
-                                      "type" = "string"
+                                      "type"        = "string"
                                     }
                                     "newTag" = {
                                       "description" = "NewTag is the value used to replace the original tag."
-                                      "type" = "string"
+                                      "type"        = "string"
                                     }
                                   }
                                   "required" = [
@@ -315,31 +315,31 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                                       "properties" = {
                                         "annotationSelector" = {
                                           "description" = "AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations."
-                                          "type" = "string"
+                                          "type"        = "string"
                                         }
                                         "group" = {
                                           "description" = "Group is the API group to select resources from. Together with Version and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md"
-                                          "type" = "string"
+                                          "type"        = "string"
                                         }
                                         "kind" = {
                                           "description" = "Kind of the API Group to select resources from. Together with Group and Version it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md"
-                                          "type" = "string"
+                                          "type"        = "string"
                                         }
                                         "labelSelector" = {
                                           "description" = "LabelSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource labels."
-                                          "type" = "string"
+                                          "type"        = "string"
                                         }
                                         "name" = {
                                           "description" = "Name to match resources with."
-                                          "type" = "string"
+                                          "type"        = "string"
                                         }
                                         "namespace" = {
                                           "description" = "Namespace to select resources from."
-                                          "type" = "string"
+                                          "type"        = "string"
                                         }
                                         "version" = {
                                           "description" = "Version of the API Group to select resources from. Together with Group and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md"
-                                          "type" = "string"
+                                          "type"        = "string"
                                         }
                                       }
                                       "type" = "object"
@@ -370,96 +370,96 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                     }
                     "releaseName" = {
                       "description" = "ReleaseName used for the Helm release. Defaults to a composition of '[TargetNamespace-]Name'."
-                      "maxLength" = 53
-                      "minLength" = 1
-                      "type" = "string"
+                      "maxLength"   = 53
+                      "minLength"   = 1
+                      "type"        = "string"
                     }
                     "rollback" = {
                       "description" = "Rollback holds the configuration for Helm rollback actions for this HelmRelease."
                       "properties" = {
                         "cleanupOnFail" = {
                           "description" = "CleanupOnFail allows deletion of new resources created during the Helm rollback action when it fails."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "disableHooks" = {
                           "description" = "DisableHooks prevents hooks from running during the Helm rollback action."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "disableWait" = {
                           "description" = "DisableWait disables the waiting for resources to be ready after a Helm rollback has been performed."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "force" = {
                           "description" = "Force forces resource updates through a replacement strategy."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "recreate" = {
                           "description" = "Recreate performs pod restarts for the resource if applicable."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "timeout" = {
                           "description" = "Timeout is the time to wait for any individual Kubernetes operation (like Jobs for hooks) during the performance of a Helm rollback action. Defaults to 'HelmReleaseSpec.Timeout'."
-                          "type" = "string"
+                          "type"        = "string"
                         }
                       }
                       "type" = "object"
                     }
                     "serviceAccountName" = {
                       "description" = "The name of the Kubernetes service account to impersonate when reconciling this HelmRelease."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "storageNamespace" = {
                       "description" = "StorageNamespace used for the Helm storage. Defaults to the namespace of the HelmRelease."
-                      "maxLength" = 63
-                      "minLength" = 1
-                      "type" = "string"
+                      "maxLength"   = 63
+                      "minLength"   = 1
+                      "type"        = "string"
                     }
                     "suspend" = {
                       "description" = "Suspend tells the controller to suspend reconciliation for this HelmRelease, it does not apply to already started reconciliations. Defaults to false."
-                      "type" = "boolean"
+                      "type"        = "boolean"
                     }
                     "targetNamespace" = {
                       "description" = "TargetNamespace to target when performing operations for the HelmRelease. Defaults to the namespace of the HelmRelease."
-                      "maxLength" = 63
-                      "minLength" = 1
-                      "type" = "string"
+                      "maxLength"   = 63
+                      "minLength"   = 1
+                      "type"        = "string"
                     }
                     "test" = {
                       "description" = "Test holds the configuration for Helm test actions for this HelmRelease."
                       "properties" = {
                         "enable" = {
                           "description" = "Enable enables Helm test actions for this HelmRelease after an Helm install or upgrade action has been performed."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "ignoreFailures" = {
                           "description" = "IgnoreFailures tells the controller to skip remediation when the Helm tests are run but fail. Can be overwritten for tests run after install or upgrade actions in 'Install.IgnoreTestFailures' and 'Upgrade.IgnoreTestFailures'."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "timeout" = {
                           "description" = "Timeout is the time to wait for any individual Kubernetes operation during the performance of a Helm test action. Defaults to 'HelmReleaseSpec.Timeout'."
-                          "type" = "string"
+                          "type"        = "string"
                         }
                       }
                       "type" = "object"
                     }
                     "timeout" = {
                       "description" = "Timeout is the time to wait for any individual Kubernetes operation (like Jobs for hooks) during the performance of a Helm action. Defaults to '5m0s'."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "uninstall" = {
                       "description" = "Uninstall holds the configuration for Helm uninstall actions for this HelmRelease."
                       "properties" = {
                         "disableHooks" = {
                           "description" = "DisableHooks prevents hooks from running during the Helm rollback action."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "keepHistory" = {
                           "description" = "KeepHistory tells Helm to remove all associated resources and mark the release as deleted, but retain the release history."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "timeout" = {
                           "description" = "Timeout is the time to wait for any individual Kubernetes operation (like Jobs for hooks) during the performance of a Helm uninstall action. Defaults to 'HelmReleaseSpec.Timeout'."
-                          "type" = "string"
+                          "type"        = "string"
                         }
                       }
                       "type" = "object"
@@ -469,42 +469,42 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                       "properties" = {
                         "cleanupOnFail" = {
                           "description" = "CleanupOnFail allows deletion of new resources created during the Helm upgrade action when it fails."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "disableHooks" = {
                           "description" = "DisableHooks prevents hooks from running during the Helm upgrade action."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "disableOpenAPIValidation" = {
                           "description" = "DisableOpenAPIValidation prevents the Helm upgrade action from validating rendered templates against the Kubernetes OpenAPI Schema."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "disableWait" = {
                           "description" = "DisableWait disables the waiting for resources to be ready after a Helm upgrade has been performed."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "force" = {
                           "description" = "Force forces resource updates through a replacement strategy."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "preserveValues" = {
                           "description" = "PreserveValues will make Helm reuse the last release's values and merge in overrides from 'Values'. Setting this flag makes the HelmRelease non-declarative."
-                          "type" = "boolean"
+                          "type"        = "boolean"
                         }
                         "remediation" = {
                           "description" = "Remediation holds the remediation configuration for when the Helm upgrade action for the HelmRelease fails. The default is to not perform any action."
                           "properties" = {
                             "ignoreTestFailures" = {
                               "description" = "IgnoreTestFailures tells the controller to skip remediation when the Helm tests are run after an upgrade action but fail. Defaults to 'Test.IgnoreFailures'."
-                              "type" = "boolean"
+                              "type"        = "boolean"
                             }
                             "remediateLastFailure" = {
                               "description" = "RemediateLastFailure tells the controller to remediate the last failure, when no retries remain. Defaults to 'false' unless 'Retries' is greater than 0."
-                              "type" = "boolean"
+                              "type"        = "boolean"
                             }
                             "retries" = {
                               "description" = "Retries is the number of retries that should be attempted on failures before bailing. Remediation, using 'Strategy', is performed between each attempt. Defaults to '0', a negative integer equals to unlimited retries."
-                              "type" = "integer"
+                              "type"        = "integer"
                             }
                             "strategy" = {
                               "description" = "Strategy to use for failure remediation. Defaults to 'rollback'."
@@ -519,13 +519,13 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                         }
                         "timeout" = {
                           "description" = "Timeout is the time to wait for any individual Kubernetes operation (like Jobs for hooks) during the performance of a Helm upgrade action. Defaults to 'HelmReleaseSpec.Timeout'."
-                          "type" = "string"
+                          "type"        = "string"
                         }
                       }
                       "type" = "object"
                     }
                     "values" = {
-                      "description" = "Values holds the values for this Helm release."
+                      "description"                          = "Values holds the values for this Helm release."
                       "x-kubernetes-preserve-unknown-fields" = true
                     }
                     "valuesFrom" = {
@@ -543,21 +543,21 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                           }
                           "name" = {
                             "description" = "Name of the values referent. Should reside in the same namespace as the referring resource."
-                            "maxLength" = 253
-                            "minLength" = 1
-                            "type" = "string"
+                            "maxLength"   = 253
+                            "minLength"   = 1
+                            "type"        = "string"
                           }
                           "optional" = {
                             "description" = "Optional marks this ValuesReference as optional. When set, a not found error for the values reference is ignored, but any ValuesKey, TargetPath or transient error will still result in a reconciliation failure."
-                            "type" = "boolean"
+                            "type"        = "boolean"
                           }
                           "targetPath" = {
                             "description" = "TargetPath is the YAML dot notation path the value should be merged at. When set, the ValuesKey is expected to be a single flat value. Defaults to 'None', which results in the values getting merged at the root."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "valuesKey" = {
                             "description" = "ValuesKey is the data key where the values.yaml or a specific value can be found at. Defaults to 'values.yaml'."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                         }
                         "required" = [
@@ -585,26 +585,26 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                         "properties" = {
                           "lastTransitionTime" = {
                             "description" = "lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable."
-                            "format" = "date-time"
-                            "type" = "string"
+                            "format"      = "date-time"
+                            "type"        = "string"
                           }
                           "message" = {
                             "description" = "message is a human readable message indicating details about the transition. This may be an empty string."
-                            "maxLength" = 32768
-                            "type" = "string"
+                            "maxLength"   = 32768
+                            "type"        = "string"
                           }
                           "observedGeneration" = {
                             "description" = "observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance."
-                            "format" = "int64"
-                            "minimum" = 0
-                            "type" = "integer"
+                            "format"      = "int64"
+                            "minimum"     = 0
+                            "type"        = "integer"
                           }
                           "reason" = {
                             "description" = "reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty."
-                            "maxLength" = 1024
-                            "minLength" = 1
-                            "pattern" = "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
-                            "type" = "string"
+                            "maxLength"   = 1024
+                            "minLength"   = 1
+                            "pattern"     = "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+                            "type"        = "string"
                           }
                           "status" = {
                             "description" = "status of the condition, one of True, False, Unknown."
@@ -617,9 +617,9 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                           }
                           "type" = {
                             "description" = "type of condition in CamelCase or in foo.example.com/CamelCase. --- Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)"
-                            "maxLength" = 316
-                            "pattern" = "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
-                            "type" = "string"
+                            "maxLength"   = 316
+                            "pattern"     = "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+                            "type"        = "string"
                           }
                         }
                         "required" = [
@@ -635,47 +635,47 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
                     }
                     "failures" = {
                       "description" = "Failures is the reconciliation failure count against the latest desired state. It is reset after a successful reconciliation."
-                      "format" = "int64"
-                      "type" = "integer"
+                      "format"      = "int64"
+                      "type"        = "integer"
                     }
                     "helmChart" = {
                       "description" = "HelmChart is the namespaced name of the HelmChart resource created by the controller for the HelmRelease."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "installFailures" = {
                       "description" = "InstallFailures is the install failure count against the latest desired state. It is reset after a successful reconciliation."
-                      "format" = "int64"
-                      "type" = "integer"
+                      "format"      = "int64"
+                      "type"        = "integer"
                     }
                     "lastAppliedRevision" = {
                       "description" = "LastAppliedRevision is the revision of the last successfully applied source."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "lastAttemptedRevision" = {
                       "description" = "LastAttemptedRevision is the revision of the last reconciliation attempt."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "lastAttemptedValuesChecksum" = {
                       "description" = "LastAttemptedValuesChecksum is the SHA1 checksum of the values of the last reconciliation attempt."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "lastHandledReconcileAt" = {
                       "description" = "LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change can be detected."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "lastReleaseRevision" = {
                       "description" = "LastReleaseRevision is the revision of the last successful Helm release."
-                      "type" = "integer"
+                      "type"        = "integer"
                     }
                     "observedGeneration" = {
                       "description" = "ObservedGeneration is the last observed generation."
-                      "format" = "int64"
-                      "type" = "integer"
+                      "format"      = "int64"
+                      "type"        = "integer"
                     }
                     "upgradeFailures" = {
                       "description" = "UpgradeFailures is the upgrade failure count against the latest desired state. It is reset after a successful reconciliation."
-                      "format" = "int64"
-                      "type" = "integer"
+                      "format"      = "int64"
+                      "type"        = "integer"
                     }
                   }
                   "type" = "object"
@@ -684,7 +684,7 @@ resource "kubernetes_manifest" "customresourcedefinition_helmreleases_helm_toolk
               "type" = "object"
             }
           }
-          "served" = true
+          "served"  = true
           "storage" = true
           "subresources" = {
             "status" = {}

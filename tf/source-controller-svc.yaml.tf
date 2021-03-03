@@ -3,22 +3,22 @@ resource "kubernetes_manifest" "service_source_controller" {
 
   manifest = {
     "apiVersion" = "v1"
-    "kind" = "Service"
+    "kind"       = "Service"
     "metadata" = {
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
-        "control-plane" = "controller"
+        "app.kubernetes.io/version"  = "v0.9.0"
+        "control-plane"              = "controller"
       }
-      "name" = "source-controller"
+      "name"      = "source-controller"
       "namespace" = "flux-system"
     }
     "spec" = {
       "ports" = [
         {
-          "name" = "http"
-          "port" = 80
-          "protocol" = "TCP"
+          "name"       = "http"
+          "port"       = 80
+          "protocol"   = "TCP"
           "targetPort" = "http"
         },
       ]

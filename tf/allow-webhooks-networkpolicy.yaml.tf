@@ -3,25 +3,25 @@ resource "kubernetes_manifest" "networkpolicy_allow_webhooks" {
 
   manifest = {
     "apiVersion" = "networking.k8s.io/v1"
-    "kind" = "NetworkPolicy"
+    "kind"       = "NetworkPolicy"
     "metadata" = {
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
+        "app.kubernetes.io/version"  = "v0.9.0"
       }
-      "name" = "allow-webhooks"
+      "name"      = "allow-webhooks"
       "namespace" = "flux-system"
     }
     "spec" = {
-      "ingress" = [
-        {
-          "from" = [
-            {
-              "namespaceSelector" = {}
-            },
-          ]
-        },
-      ]
+      # "ingress" = [
+      #   {
+      #     "from" = [
+      #       {
+      #         "namespaceSelector" = {}
+      #       },
+      #     ]
+      #   },
+      # ]
       "podSelector" = {
         "matchLabels" = {
           "app" = "notification-controller"

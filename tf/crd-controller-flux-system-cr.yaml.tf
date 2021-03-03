@@ -3,11 +3,11 @@ resource "kubernetes_manifest" "clusterrole_crd_controller_flux_system" {
 
   manifest = {
     "apiVersion" = "rbac.authorization.k8s.io/v1"
-    "kind" = "ClusterRole"
+    "kind"       = "ClusterRole"
     "metadata" = {
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
+        "app.kubernetes.io/version"  = "v0.9.0"
       }
       "name" = "crd-controller-flux-system"
     }

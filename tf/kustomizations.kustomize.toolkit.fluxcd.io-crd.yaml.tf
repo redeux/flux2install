@@ -3,23 +3,23 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
 
   manifest = {
     "apiVersion" = "apiextensions.k8s.io/v1"
-    "kind" = "CustomResourceDefinition"
+    "kind"       = "CustomResourceDefinition"
     "metadata" = {
       "annotations" = {
         "controller-gen.kubebuilder.io/version" = "v0.4.1"
       }
       "labels" = {
         "app.kubernetes.io/instance" = "flux-system"
-        "app.kubernetes.io/version" = "v0.9.0"
+        "app.kubernetes.io/version"  = "v0.9.0"
       }
       "name" = "kustomizations.kustomize.toolkit.fluxcd.io"
     }
     "spec" = {
       "group" = "kustomize.toolkit.fluxcd.io"
       "names" = {
-        "kind" = "Kustomization"
+        "kind"     = "Kustomization"
         "listKind" = "KustomizationList"
-        "plural" = "kustomizations"
+        "plural"   = "kustomizations"
         "shortNames" = [
           "ks",
         ]
@@ -31,18 +31,18 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
           "additionalPrinterColumns" = [
             {
               "jsonPath" = ".status.conditions[?(@.type==\"Ready\")].status"
-              "name" = "Ready"
-              "type" = "string"
+              "name"     = "Ready"
+              "type"     = "string"
             },
             {
               "jsonPath" = ".status.conditions[?(@.type==\"Ready\")].message"
-              "name" = "Status"
-              "type" = "string"
+              "name"     = "Status"
+              "type"     = "string"
             },
             {
               "jsonPath" = ".metadata.creationTimestamp"
-              "name" = "Age"
-              "type" = "date"
+              "name"     = "Age"
+              "type"     = "date"
             },
           ]
           "name" = "v1beta1"
@@ -52,11 +52,11 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
               "properties" = {
                 "apiVersion" = {
                   "description" = "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
-                  "type" = "string"
+                  "type"        = "string"
                 }
                 "kind" = {
                   "description" = "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
-                  "type" = "string"
+                  "type"        = "string"
                 }
                 "metadata" = {
                   "type" = "object"
@@ -79,7 +79,7 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                           "properties" = {
                             "name" = {
                               "description" = "Name of the referent"
-                              "type" = "string"
+                              "type"        = "string"
                             }
                           }
                           "required" = [
@@ -100,11 +100,11 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                         "properties" = {
                           "name" = {
                             "description" = "Name holds the name reference of a dependency."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "namespace" = {
                             "description" = "Namespace holds the namespace reference of a dependency."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                         }
                         "required" = [
@@ -115,9 +115,9 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                       "type" = "array"
                     }
                     "force" = {
-                      "default" = false
+                      "default"     = false
                       "description" = "Force instructs the controller to recreate resources when patching fails due to an immutable field change."
-                      "type" = "boolean"
+                      "type"        = "boolean"
                     }
                     "healthChecks" = {
                       "description" = "A list of resources to be included in the health assessment."
@@ -126,19 +126,19 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                         "properties" = {
                           "apiVersion" = {
                             "description" = "API version of the referent, if not specified the Kubernetes preferred version will be used"
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "kind" = {
                             "description" = "Kind of the referent"
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "name" = {
                             "description" = "Name of the referent"
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "namespace" = {
                             "description" = "Namespace of the referent, when not specified it acts as LocalObjectReference"
-                            "type" = "string"
+                            "type"        = "string"
                           }
                         }
                         "required" = [
@@ -156,19 +156,19 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                         "properties" = {
                           "digest" = {
                             "description" = "Digest is the value used to replace the original image tag. If digest is present NewTag value is ignored."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "name" = {
                             "description" = "Name is a tag-less image name."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "newName" = {
                             "description" = "NewName is the value used to replace the original name."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                           "newTag" = {
                             "description" = "NewTag is the value used to replace the original tag."
-                            "type" = "string"
+                            "type"        = "string"
                           }
                         }
                         "required" = [
@@ -180,7 +180,7 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                     }
                     "interval" = {
                       "description" = "The interval at which to reconcile the Kustomization."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "kubeConfig" = {
                       "description" = "The KubeConfig for reconciling the Kustomization on a remote cluster. When specified, KubeConfig takes precedence over ServiceAccountName."
@@ -190,7 +190,7 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                           "properties" = {
                             "name" = {
                               "description" = "Name of the referent"
-                              "type" = "string"
+                              "type"        = "string"
                             }
                           }
                           "required" = [
@@ -245,31 +245,31 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                             "properties" = {
                               "annotationSelector" = {
                                 "description" = "AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations."
-                                "type" = "string"
+                                "type"        = "string"
                               }
                               "group" = {
                                 "description" = "Group is the API group to select resources from. Together with Version and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md"
-                                "type" = "string"
+                                "type"        = "string"
                               }
                               "kind" = {
                                 "description" = "Kind of the API Group to select resources from. Together with Group and Version it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md"
-                                "type" = "string"
+                                "type"        = "string"
                               }
                               "labelSelector" = {
                                 "description" = "LabelSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource labels."
-                                "type" = "string"
+                                "type"        = "string"
                               }
                               "name" = {
                                 "description" = "Name to match resources with."
-                                "type" = "string"
+                                "type"        = "string"
                               }
                               "namespace" = {
                                 "description" = "Namespace to select resources from."
-                                "type" = "string"
+                                "type"        = "string"
                               }
                               "version" = {
                                 "description" = "Version of the API Group to select resources from. Together with Group and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md"
-                                "type" = "string"
+                                "type"        = "string"
                               }
                             }
                             "type" = "object"
@@ -292,7 +292,7 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                     }
                     "path" = {
                       "description" = "Path to the directory containing the kustomization.yaml file, or the set of plain YAMLs a kustomization.yaml should be generated for. Defaults to 'None', which translates to the root path of the SourceRef."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "postBuild" = {
                       "description" = "PostBuild describes which actions to perform on the YAML manifest generated by building the kustomize overlay."
@@ -302,7 +302,7 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                             "type" = "string"
                           }
                           "description" = "Substitute holds a map of key/value pairs. The variables defined in your YAML manifests that match any of the keys defined in the map will be substituted with the set value. Includes support for bash string replacement functions e.g. \\$\\{var:=default\\}, \\$\\{var:position\\} and \\$\\{var/substring/replacement\\}."
-                          "type" = "object"
+                          "type"        = "object"
                         }
                         "substituteFrom" = {
                           "description" = "SubstituteFrom holds references to ConfigMaps and Secrets containing the variables and their values to be substituted in the YAML manifests. The ConfigMap and the Secret data keys represent the var names and they must match the vars declared in the manifests for the substitution to happen."
@@ -319,9 +319,9 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                               }
                               "name" = {
                                 "description" = "Name of the values referent. Should reside in the same namespace as the referring resource."
-                                "maxLength" = 253
-                                "minLength" = 1
-                                "type" = "string"
+                                "maxLength"   = 253
+                                "minLength"   = 1
+                                "type"        = "string"
                               }
                             }
                             "required" = [
@@ -337,22 +337,22 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                     }
                     "prune" = {
                       "description" = "Prune enables garbage collection."
-                      "type" = "boolean"
+                      "type"        = "boolean"
                     }
                     "retryInterval" = {
                       "description" = "The interval at which to retry a previously failed reconciliation. When not specified, the controller uses the KustomizationSpec.Interval value to retry failures."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "serviceAccountName" = {
                       "description" = "The name of the Kubernetes service account to impersonate when reconciling this Kustomization."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "sourceRef" = {
                       "description" = "Reference of the source where the kustomization file is."
                       "properties" = {
                         "apiVersion" = {
                           "description" = "API version of the referent"
-                          "type" = "string"
+                          "type"        = "string"
                         }
                         "kind" = {
                           "description" = "Kind of the referent"
@@ -364,11 +364,11 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                         }
                         "name" = {
                           "description" = "Name of the referent"
-                          "type" = "string"
+                          "type"        = "string"
                         }
                         "namespace" = {
                           "description" = "Namespace of the referent, defaults to the Kustomization namespace"
-                          "type" = "string"
+                          "type"        = "string"
                         }
                       }
                       "required" = [
@@ -379,17 +379,17 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                     }
                     "suspend" = {
                       "description" = "This flag tells the controller to suspend subsequent kustomize executions, it does not apply to already started executions. Defaults to false."
-                      "type" = "boolean"
+                      "type"        = "boolean"
                     }
                     "targetNamespace" = {
                       "description" = "TargetNamespace sets or overrides the namespace in the kustomization.yaml file."
-                      "maxLength" = 63
-                      "minLength" = 1
-                      "type" = "string"
+                      "maxLength"   = 63
+                      "minLength"   = 1
+                      "type"        = "string"
                     }
                     "timeout" = {
                       "description" = "Timeout for validation, apply and health checking operations. Defaults to 'Interval' duration."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "validation" = {
                       "description" = "Validate the Kubernetes objects before applying them on the cluster. The validation strategy can be 'client' (local dry-run), 'server' (APIServer dry-run) or 'none'. When 'Force' is 'true', validation will fallback to 'client' if set to 'server' because server-side validation is not supported in this scenario."
@@ -417,26 +417,26 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                         "properties" = {
                           "lastTransitionTime" = {
                             "description" = "lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable."
-                            "format" = "date-time"
-                            "type" = "string"
+                            "format"      = "date-time"
+                            "type"        = "string"
                           }
                           "message" = {
                             "description" = "message is a human readable message indicating details about the transition. This may be an empty string."
-                            "maxLength" = 32768
-                            "type" = "string"
+                            "maxLength"   = 32768
+                            "type"        = "string"
                           }
                           "observedGeneration" = {
                             "description" = "observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance."
-                            "format" = "int64"
-                            "minimum" = 0
-                            "type" = "integer"
+                            "format"      = "int64"
+                            "minimum"     = 0
+                            "type"        = "integer"
                           }
                           "reason" = {
                             "description" = "reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty."
-                            "maxLength" = 1024
-                            "minLength" = 1
-                            "pattern" = "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
-                            "type" = "string"
+                            "maxLength"   = 1024
+                            "minLength"   = 1
+                            "pattern"     = "^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$"
+                            "type"        = "string"
                           }
                           "status" = {
                             "description" = "status of the condition, one of True, False, Unknown."
@@ -449,9 +449,9 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                           }
                           "type" = {
                             "description" = "type of condition in CamelCase or in foo.example.com/CamelCase. --- Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)"
-                            "maxLength" = 316
-                            "pattern" = "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
-                            "type" = "string"
+                            "maxLength"   = 316
+                            "pattern"     = "^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$"
+                            "type"        = "string"
                           }
                         }
                         "required" = [
@@ -467,27 +467,27 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                     }
                     "lastAppliedRevision" = {
                       "description" = "The last successfully applied revision. The revision format for Git sources is <branch|tag>/<commit-sha>."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "lastAttemptedRevision" = {
                       "description" = "LastAttemptedRevision is the revision of the last reconciliation attempt."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "lastHandledReconcileAt" = {
                       "description" = "LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change can be detected."
-                      "type" = "string"
+                      "type"        = "string"
                     }
                     "observedGeneration" = {
                       "description" = "ObservedGeneration is the last reconciled generation."
-                      "format" = "int64"
-                      "type" = "integer"
+                      "format"      = "int64"
+                      "type"        = "integer"
                     }
                     "snapshot" = {
                       "description" = "The last successfully applied revision metadata."
                       "properties" = {
                         "checksum" = {
                           "description" = "The manifests sha1 checksum."
-                          "type" = "string"
+                          "type"        = "string"
                         }
                         "entries" = {
                           "description" = "A list of Kubernetes kinds grouped by namespace."
@@ -499,11 +499,11 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
                                   "type" = "string"
                                 }
                                 "description" = "The list of Kubernetes kinds."
-                                "type" = "object"
+                                "type"        = "object"
                               }
                               "namespace" = {
                                 "description" = "The namespace of this entry."
-                                "type" = "string"
+                                "type"        = "string"
                               }
                             }
                             "required" = [
@@ -527,7 +527,7 @@ resource "kubernetes_manifest" "customresourcedefinition_kustomizations_kustomiz
               "type" = "object"
             }
           }
-          "served" = true
+          "served"  = true
           "storage" = true
           "subresources" = {
             "status" = {}
